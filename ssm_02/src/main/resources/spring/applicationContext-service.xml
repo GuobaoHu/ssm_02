@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="                                               
+                http://www.springframework.org/schema/beans    
+                http://www.springframework.org/schema/beans/spring-beans.xsd    
+                http://www.springframework.org/schema/context     
+                http://www.springframework.org/schema/context/spring-context.xsd    
+                http://www.springframework.org/schema/mvc    
+                http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+                http://www.springframework.org/schema/tx   
+                http://www.springframework.org/schema/tx/spring-tx.xsd  
+                http://www.springframework.org/schema/aop  
+                http://www.springframework.org/schema/aop/spring-aop.xsd "
+	default-autowire="byName">
+	
+	<!-- 配置Service -->
+	<bean id="itemsCustomService" class="com.guyue.ssm.service.imp.ItemsCustomServiceImp"></bean>
+	<!-- 还可以直接开启注解扫描的方式配置该bean,包可以指定比较上层的路径,例如多个包都是以com.guyue.ssm开头时，可以直接配置为com.guyue.ssm
+		注解是使用@Service的方式实现的 -->
+	<!-- <context:component-scan base-package="com.guyue.ssm.service.imp"></context:component-scan> -->
+	
+	<!-- 配置事务管理器(xml配置方式),属性中的dataSource在applicationContext-dao.xml文件中已经配置了 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 以下是通过配置方式实现事务管理 -->
+	<!-- 首先，是事务通知 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 以下是方法名*表示通配符，REQUIRED表示这些方法是必须的 -->
+			<tx:method name="insert*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<tx:method name="find*" propagation="SUPPORTS"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 其次，是事务切面aop，应用增强,该配置必须引入aspectjweaver的jar包 -->
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.guyue.ssm.service.imp.*.*(..))"/>
+	</aop:config>
+	
+	<!-- 以上，除了事务管理器之外，配置事务时还可以直接用下面的开启事务扫描的方式 -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+</beans>

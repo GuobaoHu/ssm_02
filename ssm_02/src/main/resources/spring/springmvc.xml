@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="                                               
+                http://www.springframework.org/schema/beans    
+                http://www.springframework.org/schema/beans/spring-beans.xsd    
+                http://www.springframework.org/schema/context     
+                http://www.springframework.org/schema/context/spring-context.xsd    
+                http://www.springframework.org/schema/mvc    
+                http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+                http://www.springframework.org/schema/tx   
+                http://www.springframework.org/schema/tx/spring-tx.xsd  
+                http://www.springframework.org/schema/aop  
+                http://www.springframework.org/schema/aop/spring-aop.xsd ">
+
+	<!-- 该文件中，需要配置处理器映射器，处理器适配器，处理器(开启包扫描)，视图解析器（其中可以配置jsp文件的前后缀） -->
+	<!-- 下面直接使用注解的方式配置映射器和适配器（两者成对，不能一种使用注解，另一种不使用注解） -->
+	<mvc:annotation-driven></mvc:annotation-driven>
+	
+	<!-- 配置处理器，使用注解的方式，和开启bean的包扫描一样，使用时加注解@Controller，表示是处理器 -->
+	<context:component-scan base-package="com.guyue.ssm.controller"></context:component-scan>
+	
+	<!-- 配置视图解析器,可以配置jsp的前后缀，下面只配置了前缀 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"></property>
+	</bean>
+</beans>
