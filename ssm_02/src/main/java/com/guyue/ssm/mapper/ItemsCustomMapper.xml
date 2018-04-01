@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guyue.ssm.mapper.ItemsCustomMapper">
+
+	<!-- 配置sql动态语句块 -->
+	<sql id="queryItemsByName_where">
+		<if test="itemsCustom!=null">
+			<if test="itemsCustom.name!=null and itemsCustom.name!=''">
+				items.name like '%${itemsCustom.name}%'
+			</if>
+		</if>
+	</sql>
+
+	<select id="findItemsByName" parameterType="com.guyue.ssm.po.ItemsCustomVo"
+	resultType="com.guyue.ssm.po.ItemsCustom">
+		select * from items
+		<where>
+			<include refid="queryItemsByName_where"></include>
+		</where>
+	</select>
+</mapper>

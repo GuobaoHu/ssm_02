@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- 配置别名，配置之后，包中的类作为map中的参数类型或者返回类型时，可以简写 -->
+	<typeAliases>
+		<package name="com.guyue.ssm.po"/>
+	</typeAliases>
+	
+	<!-- 还可以根据需要配置settings,可以做一些延迟加载等功能 -->
+	
+	<!-- 不再需要配置mapper的路径，因为可以直接在spring的相关配置文件中开启mapper包扫描的功能 -->
+	
+	
+</configuration>
