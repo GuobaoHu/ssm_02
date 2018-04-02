@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.guyue.ssm.po.ItemsCustom;
@@ -12,12 +13,13 @@ import com.guyue.ssm.po.ItemsCustomVo;
 import com.guyue.ssm.service.ItemsCustomService;
 
 @Controller
+@RequestMapping(value="items")
 public class ItemsCustomController {
 	
 	@Autowired
 	private ItemsCustomService itemsCustomService;
 	
-	@RequestMapping("queryItems")
+	@RequestMapping(value="queryItems",method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView findItemsByName() throws Exception {
 		List<ItemsCustom> itemsList = itemsCustomService.findItemsByName(null);
 		ModelAndView modelAndView = new ModelAndView();
