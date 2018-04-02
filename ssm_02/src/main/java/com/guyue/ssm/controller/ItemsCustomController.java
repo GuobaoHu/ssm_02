@@ -25,4 +25,31 @@ public class ItemsCustomController {
 		modelAndView.setViewName("itemsList.jsp");
 		return modelAndView;
 	}
+	
+	//商品修改界面的商品详情展现
+	@RequestMapping("editItems")
+	public ModelAndView editItems() throws Exception {
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		//查询商品信息
+		ItemsCustom itemsCustom = itemsCustomService.findItemsById(1);
+		
+		//将商品信息(model)放到modelAndView中
+		modelAndView.addObject("itemsCustom", itemsCustom);
+		
+		//将view添加到modelAndView中
+		modelAndView.setViewName("editItems.jsp");
+		
+		return modelAndView;
+	}
+	
+	//商品修改成功的提示
+	@RequestMapping("editItemsSubmit")
+	public ModelAndView editItemsSubmit() throws Exception {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.setViewName("success.jsp");
+		return modelAndView;
+	}
 }
