@@ -17,7 +17,18 @@
 
 	<!-- 该文件中，需要配置处理器映射器，处理器适配器，处理器(开启包扫描)，视图解析器（其中可以配置jsp文件的前后缀） -->
 	<!-- 下面直接使用注解的方式配置映射器和适配器（两者成对，不能一种使用注解，另一种不使用注解） -->
-	<mvc:annotation-driven></mvc:annotation-driven>
+	<!-- conversionService是配置的自定义的参数绑定 -->
+	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
+	
+	<!-- 自定义的参数绑定类 -->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<!-- 日期类型转换 -->
+				<bean class="com.guyue.ssm.controller.conversion.CustomDateConverter"></bean>
+			</list>
+		</property>
+	</bean>
 	
 	<!-- 配置处理器，使用注解的方式，和开启bean的包扫描一样，使用时加注解@Controller，表示是处理器 -->
 	<context:component-scan base-package="com.guyue.ssm.controller"></context:component-scan>

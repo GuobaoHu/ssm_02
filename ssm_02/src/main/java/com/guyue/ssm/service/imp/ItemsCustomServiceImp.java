@@ -13,6 +13,7 @@ import com.guyue.ssm.po.ItemsCustomVo;
 import com.guyue.ssm.service.ItemsCustomService;
 
 public class ItemsCustomServiceImp implements ItemsCustomService {
+	
 	//自动注入mapper的属性
 	@Autowired
 	private ItemsCustomMapper itemsCustomMapper;

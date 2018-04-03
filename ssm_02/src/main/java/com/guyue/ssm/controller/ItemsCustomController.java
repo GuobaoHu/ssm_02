@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.guyue.ssm.po.ItemsCustom;
@@ -35,15 +36,15 @@ public class ItemsCustomController {
 	//商品修改界面的商品详情展现
 	//情况一：返回ModelAndView
 	@RequestMapping("editItems")
-	public ModelAndView editItems() throws Exception {
+	public ModelAndView editItems(Integer id) throws Exception {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		//查询商品信息
-		ItemsCustom itemsCustom = itemsCustomService.findItemsById(1);
+		ItemsCustom itemsCustom1 = itemsCustomService.findItemsById(id);
 		
 		//将商品信息(model)放到modelAndView中
-		modelAndView.addObject("itemsCustom", itemsCustom);
+		modelAndView.addObject("itemsCustom", itemsCustom1);
 		
 		//将view添加到modelAndView中
 		modelAndView.setViewName("editItems.jsp");
@@ -83,7 +84,10 @@ public class ItemsCustomController {
 	
 	//商品修改成功的提示
 	@RequestMapping("editItemsSubmit")
-	public ModelAndView editItemsSubmit() throws Exception {
+	public ModelAndView editItemsSubmit(String name, ItemsCustom itemsCustom) throws Exception {
+		System.out.println(name);
+		System.out.println(itemsCustom.getName());
+		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.setViewName("success.jsp");
