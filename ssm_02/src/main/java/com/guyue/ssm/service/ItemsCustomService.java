@@ -23,6 +23,10 @@ public interface ItemsCustomService {
 	 * @param itemsCustom ItemsCustom对象，其中封装商品需要修改的信息
 	 * @throws Exception
 	 */
-	public void updateItemsById(Integer id, ItemsCustom itemsCustom) throws Exception;
+	public void updateItemsById(Integer id, ItemsCustomVo itemsCustomVo) throws Exception;
+
+	public void delItems(Integer[] items_id) throws Exception;
+	
+	public void modifyItemsList(ItemsCustomVo itemsCustomVo) throws Exception;
 	
 }

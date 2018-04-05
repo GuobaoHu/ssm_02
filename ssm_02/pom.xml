@@ -7,7 +7,7 @@
 	<packaging>war</packaging>
 	<build>
 		<finalName>SSM</finalName>
-		
+
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -211,12 +211,20 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
 		</dependency>
-		
+
 		<!-- 可以解决事务配置时，aop配置切面报错问题 -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.8.7</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.0.Final</version>
+		</dependency>
+
 	</dependencies>
 </project>

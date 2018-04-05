@@ -2,17 +2,23 @@ package com.guyue.ssm.po;
 
 import java.util.Date;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Items {
     private Integer id;
 
+    @Size(min=1, max=30, message="{items.name.error}")
     private String name;
 
     private Float price;
 
     private String pic;
-
+    
     private Date createtime;
-
+    
+    @NotEmpty(message="{items.detail.error}")
     private String detail;
 
     public Integer getId() {
