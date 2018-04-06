@@ -18,7 +18,7 @@ public class HandlerInterceptor2 implements HandlerInterceptor {
 			throws Exception {
 		
 		System.out.println("拦截器2...preHandle");
-		return false;
+		return true;
 	}
 
 	/**

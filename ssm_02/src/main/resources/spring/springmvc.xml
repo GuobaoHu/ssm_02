@@ -61,6 +61,12 @@
 	
 	<!-- 配置拦截器 -->
 	<mvc:interceptors>
+		<!-- 登录拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.guyue.ssm.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+		
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<bean class="com.guyue.ssm.interceptor.HandlerInterceptor1"></bean>
