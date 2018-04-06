@@ -20,6 +20,14 @@
 	<!-- conversionService是配置的自定义的参数绑定 -->
 	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
 
+	<!-- 可以解决RESTful格式的前端控制器无法解析静态资源的问题,静态资源解析器,还可以解析css,img等 -->
+	<!-- 这种格式出了问题，是因为之前的是对于资源的存储使用的是String[]现在改成了ArrayList<>造成的问题。 -->
+	<!-- <mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/img/" mapping="/img/**"/> -->
+	
+	<!-- 如果使用了RESTful形式的拦截，那么对于静态资源的处理上，就需要加上此句，静态资源（没有映射的）就会 -->
+    <mvc:default-servlet-handler />
+	
 	<!-- 自定义的参数绑定类 -->
 	<bean id="conversionService"
 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
