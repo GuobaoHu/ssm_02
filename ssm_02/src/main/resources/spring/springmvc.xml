@@ -42,4 +42,13 @@
 	
 	<!-- 异常处理器 -->
 	<bean class="com.guyue.ssm.Exception.Resolver.CustomExceptionResolver"></bean>
+	
+	<!-- multipart类型的解析器，可以解析图片 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize">
+			<!-- 最大上传图片大小，5M -->
+			<value>5242880</value>
+		</property>
+	</bean>
+	
 </beans>

@@ -1,7 +1,11 @@
 package com.guyue.ssm.controller;
 
 import java.awt.Dialog.ModalExclusionType;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.guyue.ssm.Exception.CustomException;
@@ -29,6 +34,8 @@ import com.guyue.ssm.service.ItemsCustomService;
 @RequestMapping(value="items")
 public class ItemsCustomController {
 	
+	public static final String PIC_FILE_PATH = "F:\\develop\\upload\\temp\\";
+	
 	@Autowired
 	private ItemsCustomService itemsCustomService;
 	
@@ -39,11 +46,8 @@ public class ItemsCustomController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="queryItems",method={RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView findItemsByName(ItemsCustomVo itemsCustomVo, User user, String abcd) throws Exception {
-		if(abcd == null) {
-			throw new CustomException("用户为空！");
-		}
-		
+	public ModelAndView findItemsByName(ItemsCustomVo itemsCustomVo, User user) throws Exception {
+			
 		List<ItemsCustom> itemsList = itemsCustomService.findItemsByName(itemsCustomVo);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("itemsList", itemsList);
@@ -103,9 +107,38 @@ public class ItemsCustomController {
 	
 	//商品修改成功的提示
 	@RequestMapping("editItemsSubmit")
-	public String editItemsSubmit(Model model,String name, ItemsCustomVo itemsCustomVo, ItemsCustom itemsCustom) throws Exception {
-		
+	public String editItemsSubmit(Model model,String name, ItemsCustomVo itemsCustomVo, MultipartFile pictureFile) throws Exception {
+		if(pictureFile != null) {
+			//获取图片的原始名称
+			String originalFilename = pictureFile.getOriginalFilename();
+			if(originalFilename != null && originalFilename.length() > 0) {
+				//获取今天的日期，作为图片存放的文件夹，图片分目录之后读取效率会高
+				Date today = new Date();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String todayString = dateFormat.format(today);
 				
+				//新的图片存放路径
+				String filePath = PIC_FILE_PATH  + todayString + "\\";
+				
+				//新的图片名称
+				String newFileName = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
+				
+				//新的图片
+				File newPic = new File(filePath + newFileName);
+				
+				//新的图片路径是否存在,不存在则创建
+				if(! newPic.exists()) {
+					newPic.mkdirs();
+				}
+				
+				//将上传过来的图片写到newPic对应的路径文件下
+				pictureFile.transferTo(newPic);
+				
+				//将图片写入到itemsCustomVo中
+				itemsCustomVo.getItemsCustom().setPic(todayString + "/" + newFileName);
+			}
+		}
+		
 		itemsCustomService.updateItemsById(itemsCustomVo.getItemsCustom().getId(), itemsCustomVo);
 		return "success.jsp";
 	}

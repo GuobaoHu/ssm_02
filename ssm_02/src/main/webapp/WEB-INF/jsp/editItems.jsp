@@ -10,7 +10,7 @@
 
 </head>
 <body> 
-<form id="itemForm" action="${pageContext.request.contextPath}/items/editItemsSubmit.action" method="post"><!-- enctype="multipart/form-data" -->
+<form id="itemForm" action="${pageContext.request.contextPath}/items/editItemsSubmit.action" method="post" enctype="multipart/form-data"><!-- enctype="multipart/form-data" -->
 <input type="hidden" name="itemsCustom.id" value="${itemsCustom.id }"/>
 
 修改商品信息：
@@ -29,13 +29,13 @@
 </tr>
 <tr>
 	<td>商品图片</td>
-	<%-- <td>
+	<td>
 		<c:if test="${itemsCustom.pic !=null}">
-			<img src="/pic/${itemsCustom.pic}" width=100 height=100/>
+			<img src="/pic/${itemsCustom.pic}" width=500 height=500/>
 			<br/>
 		</c:if>
-		<input type="file"  name="pictureFile"/> 
-	</td> --%>
+		<input type="file"  name="pictureFile"/>
+	</td>
 </tr>
 <tr>
 	<td>商品简介</td>
