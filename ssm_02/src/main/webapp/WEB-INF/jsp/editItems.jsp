@@ -12,10 +12,7 @@
 <body> 
 <form id="itemForm" action="${pageContext.request.contextPath}/items/editItemsSubmit.action" method="post"><!-- enctype="multipart/form-data" -->
 <input type="hidden" name="itemsCustom.id" value="${itemsCustom.id }"/>
-<c:if test="${allErrors != null}">
-	<c:forEach items="${allErrors}" var="error"></c:forEach>
-	<span color="red"><c:out value="${error.defaultMessage }"></c:out></span>
-</c:if>
+
 修改商品信息：
 <table width="100%" border=1>
 <tr>
